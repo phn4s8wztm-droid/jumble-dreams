@@ -1,0 +1,176 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#7250c8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Jumble Dreams">
+<link rel="manifest" href="./manifest.webmanifest"><title>Jumble Dreams v7</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,"Arial Rounded MT Bold",sans-serif}body{background:linear-gradient(#304fdc 0%,#9b7cf0 46%,#f5bde7 100%);color:#48208e}
+#app{height:100svh;max-width:430px;margin:auto;position:relative;overflow:hidden;padding:max(8px,env(safe-area-inset-top)) 10px max(2px,env(safe-area-inset-bottom));display:grid;grid-template-rows:86px 1fr 166px}
+.bg{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 20% 15%,#fff 0 1px,transparent 2px),radial-gradient(circle at 78% 23%,#fff6a0 0 2px,transparent 3px),radial-gradient(circle at 53% 42%,#fff 0 1px,transparent 2px);background-size:93px 107px,141px 129px,77px 83px;opacity:.8}.cloud{position:absolute;font-size:72px;filter:drop-shadow(0 6px 10px #684cb955);opacity:.82}.c1{top:70px;left:-24px}.c2{top:300px;right:-35px}.c3{bottom:-20px;left:35px;font-size:105px}.moon{position:absolute;right:18px;top:108px;font-size:52px;filter:drop-shadow(0 0 12px #fff3a8)}
+header{z-index:3;display:grid;grid-template-columns:1fr auto 1fr;align-items:start;gap:5px}.hud{display:flex;gap:5px}.hud.r{justify-content:flex-end}.pill,.round{border:2px solid #ffffffbb;background:linear-gradient(#ffffff55,#d8c7ff55);box-shadow:inset 0 2px 6px #fff8,0 4px 8px #4d329655;color:white;font-weight:900}.round{width:42px;height:42px;border-radius:50%;font-size:18px}.pill{height:42px;border-radius:22px;padding:0 12px;display:flex;align-items:center;justify-content:center;white-space:nowrap}.brand{text-align:center;color:white;text-shadow:0 2px 5px #5b319b}.brand b{display:block;font-family:cursive;font-size:28px;line-height:25px;color:#ffd9ff}.brand small{font-size:10px;letter-spacing:4px}.level{margin-top:3px;background:#f6eaffdd;border-radius:14px;padding:4px 12px;font-size:12px;color:#55259a;font-weight:950}
+main{z-index:2;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 124px;gap:8px;padding-top:2px}.board{display:grid;grid-template-columns:repeat(8,1fr);grid-auto-rows:minmax(20px,1fr);gap:2px;align-content:center;max-height:100%;padding:2px 0}.cell{border-radius:4px;border:1px solid #ffffffaa;background:linear-gradient(#8fd6ff,#6cbdf3);box-shadow:inset 0 1px #fff9,0 1px 3px #4c3d9a44;display:flex;align-items:center;justify-content:center;color:#57319b;font-size:10px;font-weight:950}.cell.p{background:linear-gradient(#d8b5ff,#b487ef)}.cell.g{background:linear-gradient(#9bf3c4,#6fdca3)}.cell.k{background:linear-gradient(#ffb8df,#f28dc9)}.cell.gold{background:linear-gradient(#fff28e,#ffc942);color:#fff}.cell.empty{visibility:hidden}
+.side{display:flex;flex-direction:column;gap:7px;justify-content:center}.card{background:linear-gradient(#fffaffed,#efdff7e8);border:2px solid #fff;border-radius:20px;padding:9px 8px;box-shadow:0 6px 14px #51359244}.card h3{font-size:12px;text-align:center;margin:0 0 5px}.found{font-size:10px;font-weight:900;min-height:96px;max-height:150px;overflow:auto}
+.answerRow{display:flex;justify-content:center;gap:2px;padding:3px 0}
+.answerBox{width:13px;height:15px;border-radius:3px;background:#fff9ff;border:1.5px solid #b891dd;box-shadow:inset 0 1px #fff;display:flex;align-items:center;justify-content:center;font-size:9px;color:#59288f}
+.answerRow.done .answerBox{background:linear-gradient(#fff4a4,#ffd45d);border-color:#dda72d;color:#54208d;font-weight:950}
+.answerRow.dream .answerBox{border-color:#e0a92e;box-shadow:0 0 4px #ffe57b}.found i{font-style:normal;color:#e9ae1c}.goal{text-align:center;font-size:9px;font-weight:800}.bar{height:10px;background:#8455ce;border-radius:8px;margin:6px 2px;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,#ffdf58,#ff7fc9);width:0}.count{font-size:10px;font-weight:950}
+.controls{z-index:3;display:flex;flex-direction:column;justify-content:flex-end;align-items:center}.tiles{height:63px;width:100%;display:flex;justify-content:center;gap:3px;touch-action:none}.tile{width:49px;height:59px;flex:0 0 49px;border-radius:11px;border:2px solid white;background:linear-gradient(#fffaff,#f3d7f4);box-shadow:0 5px 0 #8b61c3,0 8px 14px #4f348055;color:#54208d;font-size:25px;font-weight:950;display:flex;align-items:center;justify-content:center;touch-action:none;user-select:none;position:relative}.tile.sel{background:linear-gradient(#fff8b1,#ffc94f);box-shadow:0 5px 0 #c58b32,0 0 13px #ffe56e}.tile.drag{position:fixed;z-index:50;pointer-events:none;transform:rotate(-7deg) scale(1.08)}.ph{width:49px;height:59px;flex:0 0 49px}.track{width:76%;height:29px;position:relative;touch-action:none}.rail{position:absolute;top:8px;left:0;right:0;height:18px;border-radius:20px;background:#7447c4;box-shadow:inset 0 4px 7px #3e2786,0 0 9px #fff7}.glow{position:absolute;top:5px;height:24px;border-radius:20px;background:linear-gradient(90deg,#ffe765,#fff4a4);box-shadow:0 0 14px #fff095;display:none}.actions{position:absolute;bottom:4px;left:18px;right:18px;display:flex;justify-content:space-between;pointer-events:none}.action{pointer-events:auto;width:42px;height:42px;border-radius:50%;border:2px solid white;background:linear-gradient(#fffaff,#e6d1f6);color:#5b2c9d;font-weight:950;box-shadow:0 5px 0 #8663ba}.action b{display:block;font-size:15px;line-height:14px}.action span{font-size:7px}.msg{height:17px;color:#fff6a4;font-size:12px;font-weight:950;text-shadow:0 2px 4px #55328e}.overlay{display:none;position:fixed;inset:0;z-index:100;background:#56369266;backdrop-filter:blur(8px);align-items:center;justify-content:center}.overlay.show{display:flex}.win{background:#fff2fbeF;border:2px solid white;border-radius:28px;padding:25px;text-align:center;width:82%;color:#582793;box-shadow:0 20px 50px #3d276477}.win button{border:0;border-radius:20px;background:#774ac3;color:#fff;padding:12px 22px;font-weight:900}
+@media(max-width:380px){.tile,.ph{width:43px;flex-basis:43px}.side{width:105px}.pill{padding:0 8px}main{grid-template-columns:minmax(0,1fr) 105px}}
+</style></head><body><div id="app"><div class="bg"></div><div class="cloud c1">☁️</div><div class="cloud c2">☁️</div><div class="cloud c3">☁️</div><div class="moon">🌙</div>
+<header><div class="hud"><button class="round" id="pause">Ⅱ</button><div class="pill">⭐ <span id="score">0</span></div></div><div class="brand"><b>Jumble</b><small>DREAMS</small><div class="level">LEVEL <span id="level">1</span></div></div><div class="hud r"><button class="round" id="sound" aria-label="Toggle sound">♪</button><div class="pill">◷ <span id="time">0:00</span></div></div></header>
+<main><div class="board" id="board"></div><div class="side"><div class="card"><h3>⭐ Words Found ⭐</h3><div class="found" id="found"></div></div><div class="card goal">Find the longest word<br>to complete the level!<div class="bar"><div class="fill" id="fill"></div></div><div class="count" id="count">0/0</div></div></div></main>
+<section class="controls"><div class="msg" id="msg">Tap letters to highlight • hold & drag to rearrange</div><div class="tiles" id="tiles"><div class="tile">P</div><div class="tile">L</div><div class="tile">A</div><div class="tile">N</div><div class="tile">E</div><div class="tile">T</div><div class="tile">S</div></div><div class="track" id="track"><div class="rail"></div><div class="glow" id="glow"></div></div><div class="actions"><button class="action" id="shuffle"><b>⤨</b><span>Shuffle</span></button><button class="action" id="clear"><b>◇</b><span>Clear</span></button></div></section></div>
+<div class="overlay" id="overlay"><div class="win"><div style="font-size:35px">⭐ ✨ ⭐</div><h2>Dream Complete!</h2><p id="wintext"></p><button id="next">Next Level →</button></div></div>
+<script>
+(()=>{const levels=[{"letters":"PLANETS","words":["AN","AS","AT","ANT","ATE","EAT","NET","PAN","PEN","SEA","SET","TEA","TEN","LEAP","PALE","PEAL","PLAN","PLEA","TALE","LEAST","PETAL","PLANE","PLANT","PLATE","SLATE","STALE","STEAL","PLANET","PLANETS"]},{"letters":"SENATOR","words":["AN","AS","AT","NO","ON","OR","SO","TO","ANT","ARE","ART","ATE","EAR","EAT","ERA","NET","RAT","SEA","SET","TAR","TEA","TEN","EARN","NEAR","NOTE","RATE","ROSE","SORE","STAR","TEAR","TONE","STONE","STORE","SENATOR"]},{"letters":"DREAMER","words":["AM","ME","ARE","EAR","ERA","DARE","DEAR","READ","DREAMER"]},{"letters":"HEARTS","words":["AS","AT","HE","ARE","ART","ATE","EAR","EAT","ERA","RAT","SEA","SET","TAR","TEA","HARE","HATE","HEAR","HEAT","RATE","STAR","TEAR","EARTH","HEART","HEARTS"]},{"letters":"STREAM","words":["AM","AS","AT","ME","ARE","ART","ATE","EAR","EAT","ERA","RAT","SEA","SET","TAR","TEA","MEAT","RATE","STAR","TAME","TEAM","TEAR","STEAM","STREAM"]},{"letters":"MASTER","words":["AM","AS","AT","ME","ARE","ART","ATE","EAR","EAT","ERA","RAT","SEA","SET","TAR","TEA","MEAT","RATE","STAR","TAME","TEAM","TEAR","STEAM","MASTER"]},{"letters":"GARDEN","words":["AN","ARE","EAR","ERA","DARE","DEAR","EARN","NEAR","READ","GARDEN"]},{"letters":"PLANER","words":["AN","ARE","EAR","ERA","PAN","PEN","EARN","LEAP","NEAR","PALE","PEAL","PLAN","PLEA","LEARN","PLANE","PLANER"]},{"letters":"STONES","words":["NO","ON","SO","TO","NET","SET","TEN","NOTE","TONE","STONE","STONES"]},{"letters":"TRAINS","words":["AN","AS","AT","IN","IS","IT","ANT","ART","RAT","TAR","RAIN","STAR","TRAINS"]},{"letters":"PAINTER","words":["AN","AT","IN","IT","ANT","ARE","ART","ATE","EAR","EAT","ERA","NET","PAN","PEN","RAT","TAR","TEA","TEN","EARN","NEAR","RAIN","RATE","RITE","TEAR","TIER","TIRE","PAINTER"]},{"letters":"LISTEN","words":["IN","IS","IT","NET","SET","TEN","LIEN","LINE","SINE","TILE","ISLET","STILE","ENLIST","LISTEN","SILENT","TINSEL"]},{"letters":"SILENT","words":["IN","IS","IT","NET","SET","TEN","LIEN","LINE","SINE","TILE","ISLET","STILE","ENLIST","LISTEN","SILENT","TINSEL"]},{"letters":"ENLIST","words":["IN","IS","IT","NET","SET","TEN","LIEN","LINE","SINE","TILE","ISLET","STILE","ENLIST","LISTEN","SILENT","TINSEL"]},{"letters":"TINSEL","words":["IN","IS","IT","NET","SET","TEN","LIEN","LINE","SINE","TILE","ISLET","STILE","ENLIST","LISTEN","SILENT","TINSEL"]},{"letters":"ANGELS","words":["AN","AS","SEA","ANGEL","GLEAN","ANGELS"]},{"letters":"GLEAN","words":["AN","ANGEL","GLEAN","GL","LE","EA","GLE","LEA","EAN","GLEA","LEAN"]},{"letters":"LEARN","words":["AN","ARE","EAR","ERA","EARN","NEAR","LEARN"]},{"letters":"EARTH","words":["AT","HE","ARE","ART","ATE","EAR","EAT","ERA","RAT","TAR","TEA","HARE","HATE","HEAR","HEAT","RATE","TEAR","EARTH","HEART"]},{"letters":"HEART","words":["AT","HE","ARE","ART","ATE","EAR","EAT","ERA","RAT","TAR","TEA","HARE","HATE","HEAR","HEAT","RATE","TEAR","EARTH","HEART"]},{"letters":"THING","words":["IN","IT","NIGHT","THING","TH","HI","NG","THI","HIN","ING","THIN","HING"]},{"letters":"NIGHT","words":["IN","IT","NIGHT","THING","NI","IG","GH","HT","NIG","IGH","GHT","NIGH","IGHT"]},{"letters":"LIGHT","words":["IT","LIGHT","LI","IG","GH","HT","LIG","IGH","GHT","LIGH","IGHT"]},{"letters":"SMILE","words":["IS","ME","MILE","SMILE","SM","MI","IL","LE","SMI","MIL","ILE","SMIL"]},{"letters":"MILES","words":["IS","ME","MILE","MILES","SMILE","MI","IL","LE","ES","MIL","ILE","LES","ILES"]},{"letters":"TIMES","words":["IS","IT","ME","SET","EMIT","ITEM","MITE","TIME","TIMES"]},{"letters":"STEAM","words":["AM","AS","AT","ME","ATE","EAT","SEA","SET","TEA","MEAT","TAME","TEAM","STEAM"]},{"letters":"TEAMS","words":["AM","AS","AT","ME","ATE","EAT","SEA","SET","TEA","MEAT","TAME","TEAM","STEAM","TEAMS"]},{"letters":"MEATS","words":["AM","AS","AT","ME","ATE","EAT","SEA","SET","TEA","MEAT","TAME","TEAM","MEATS","STEAM"]},{"letters":"TAMES","words":["AM","AS","AT","ME","ATE","EAT","SEA","SET","TEA","MEAT","TAME","TEAM","STEAM","TAMES"]},{"letters":"RATES","words":["AS","AT","ARE","ART","ATE","EAR","EAT","ERA","RAT","SEA","SET","TAR","TEA","RATE","STAR","TEAR","RATES"]},{"letters":"TEARS","words":["AS","AT","ARE","ART","ATE","EAR","EAT","ERA","RAT","SEA","SET","TAR","TEA","RATE","STAR","TEAR","TEARS"]},{"letters":"STARE","words":["AS","AT","ARE","ART","ATE","EAR","EAT","ERA","RAT","SEA","SET","TAR","TEA","RATE","STAR","TEAR","STARE"]},{"letters":"ASTER","words":["AS","AT","ARE","ART","ATE","EAR","EAT","ERA","RAT","SEA","SET","TAR","TEA","RATE","STAR","TEAR","ASTER"]},{"letters":"CARES","words":["AS","ARE","EAR","ERA","SEA","ACRE","CARE","RACE","CARES"]},{"letters":"RACES","words":["AS","ARE","EAR","ERA","SEA","ACRE","CARE","RACE","RACES"]},{"letters":"ACRES","words":["AS","ARE","EAR","ERA","SEA","ACRE","CARE","RACE","ACRES"]},{"letters":"SCARE","words":["AS","ARE","EAR","ERA","SEA","ACRE","CARE","RACE","SCARE"]},{"letters":"NOTES","words":["NO","ON","SO","TO","NET","SET","TEN","NOTE","TONE","NOTES","STONE"]},{"letters":"TONES","words":["NO","ON","SO","TO","NET","SET","TEN","NOTE","TONE","STONE","TONES"]},{"letters":"STONE","words":["NO","ON","SO","TO","NET","SET","TEN","NOTE","TONE","STONE"]},{"letters":"ONSET","words":["NO","ON","SO","TO","NET","SET","TEN","NOTE","TONE","ONSET","STONE"]},{"letters":"STORE","words":["OR","SO","TO","SET","ROSE","SORE","STORE"]},{"letters":"ROSE","words":["OR","SO","ROSE","SORE","RO","OS","SE","ROS","OSE"]},{"letters":"SORE","words":["OR","SO","ROSE","SORE","RE","SOR","ORE"]},{"letters":"EARN","words":["AN","ARE","EAR","ERA","EARN","NEAR"]},{"letters":"NEAR","words":["AN","ARE","EAR","ERA","EARN","NEAR"]},{"letters":"DEAR","words":["ARE","EAR","ERA","DARE","DEAR","READ"]},{"letters":"DARE","words":["ARE","EAR","ERA","DARE","DEAR","READ"]},{"letters":"READ","words":["ARE","EAR","ERA","DARE","DEAR","READ"]},{"letters":"MAKER","words":["AM","ME","ARE","EAR","ERA","MAKER"]},{"letters":"BREAK","words":["BE","ARE","EAR","ERA","BREAK","BR","RE","EA","AK","BRE","REA","EAK","BREA","REAK"]},{"letters":"BAKER","words":["BE","ARE","EAR","ERA","BAKER","BA","AK","KE","ER","BAK","AKE","KER","BAKE","AKER"]},{"letters":"BRAKE","words":["BE","ARE","EAR","ERA","BRAKE","BR","RA","AK","KE","BRA","RAK","AKE","BRAK","RAKE"]},{"letters":"BEARS","words":["AS","BE","ARE","EAR","ERA","SEA","BEARS"]},{"letters":"BARES","words":["AS","BE","ARE","EAR","ERA","SEA","BARES"]},{"letters":"SPEAR","words":["AS","ARE","EAR","ERA","SEA","SPEAR"]},{"letters":"PEARS","words":["AS","ARE","EAR","ERA","SEA","PEARS"]},{"letters":"REAPS","words":["AS","ARE","EAR","ERA","SEA","REAPS"]},{"letters":"SPARE","words":["AS","ARE","EAR","ERA","SEA","SPARE"]},{"letters":"LEAPS","words":["AS","SEA","LEAP","PALE","PEAL","PLEA","LEAPS"]},{"letters":"PALES","words":["AS","SEA","LEAP","PALE","PEAL","PLEA","PALES"]},{"letters":"PEALS","words":["AS","SEA","LEAP","PALE","PEAL","PLEA","PEALS"]},{"letters":"PLEAS","words":["AS","SEA","LEAP","PALE","PEAL","PLEA","PLEAS"]},{"letters":"PLATE","words":["AT","ATE","EAT","TEA","LEAP","PALE","PEAL","PLEA","TALE","PETAL","PLATE"]},{"letters":"PETAL","words":["AT","ATE","EAT","TEA","LEAP","PALE","PEAL","PLEA","TALE","PETAL","PLATE"]},{"letters":"LEAPT","words":["AT","ATE","EAT","TEA","LEAP","PALE","PEAL","PLEA","TALE","LEAPT","PETAL","PLATE"]},{"letters":"STALE","words":["AS","AT","ATE","EAT","SEA","SET","TEA","TALE","LEAST","SLATE","STALE","STEAL"]},{"letters":"STEAL","words":["AS","AT","ATE","EAT","SEA","SET","TEA","TALE","LEAST","SLATE","STALE","STEAL"]},{"letters":"TALES","words":["AS","AT","ATE","EAT","SEA","SET","TEA","TALE","LEAST","SLATE","STALE","STEAL","TALES"]},{"letters":"SLATE","words":["AS","AT","ATE","EAT","SEA","SET","TEA","TALE","LEAST","SLATE","STALE","STEAL"]},{"letters":"LEAST","words":["AS","AT","ATE","EAT","SEA","SET","TEA","TALE","LEAST","SLATE","STALE","STEAL"]},{"letters":"TILES","words":["IS","IT","SET","TILE","ISLET","STILE","TILES"]},{"letters":"ISLET","words":["IS","IT","SET","TILE","ISLET","STILE"]},{"letters":"STILE","words":["IS","IT","SET","TILE","ISLET","STILE"]},{"letters":"LINES","words":["IN","IS","LIEN","LINE","SINE","LINES"]},{"letters":"LIENS","words":["IN","IS","LIEN","LINE","SINE","LIENS"]},{"letters":"SINE","words":["IN","IS","SINE","SI","NE","SIN","INE"]},{"letters":"SIGN","words":["IN","IS","SIGN","SING","SI","IG","GN","SIG","IGN"]},{"letters":"SING","words":["IN","IS","SIGN","SING","SI","NG","SIN","ING"]},{"letters":"RING","words":["IN","GRIN","RING","RI","NG","RIN","ING"]},{"letters":"GRIN","words":["IN","GRIN","RING","GR","RI","GRI","RIN"]},{"letters":"RAIN","words":["AN","IN","RAIN","RA","AI","RAI","AIN"]},{"letters":"GAIN","words":["AN","IN","GAIN","GA","AI","GAI","AIN"]},{"letters":"MAIN","words":["AM","AN","IN","MAIN","MA","AI","MAI","AIN"]},{"letters":"NAIL","words":["AN","IN","LAIN","NAIL","NA","AI","IL","NAI","AIL"]},{"letters":"LAIN","words":["AN","IN","LAIN","NAIL","LA","AI","LAI","AIN"]},{"letters":"LION","words":["IN","NO","ON","LION","LOIN","LI","IO","LIO","ION"]},{"letters":"LOIN","words":["IN","NO","ON","LION","LOIN","LO","OI","LOI","OIN"]},{"letters":"NOIR","words":["IN","NO","ON","OR","IRON","NOIR"]},{"letters":"IRON","words":["IN","NO","ON","OR","IRON","IR","RO","IRO","RON"]},{"letters":"RISE","words":["IS","RISE","SIRE","RI","SE","RIS","ISE"]},{"letters":"SIRE","words":["IS","RISE","SIRE","SI","IR","RE","SIR","IRE"]},{"letters":"TIRE","words":["IT","RITE","TIER","TIRE","TI","IR","RE","TIR","IRE"]},{"letters":"TIER","words":["IT","RITE","TIER","TIRE","TI","IE","ER","TIE","IER"]},{"letters":"RITE","words":["IT","RITE","TIER","TIRE","RI","TE","RIT","ITE"]},{"letters":"TIME","words":["IT","ME","EMIT","ITEM","MITE","TIME"]},{"letters":"MITE","words":["IT","ME","EMIT","ITEM","MITE","TIME"]},{"letters":"ITEM","words":["IT","ME","EMIT","ITEM","MITE","TIME"]},{"letters":"EMIT","words":["IT","ME","EMIT","ITEM","MITE","TIME"]}];
+let li=0,order=[],found=[],score=0,start=Date.now(),paused=false,drag=null,ph=null,dx=0,dy=0,select=false,a=-1,b=-1;const $=x=>document.getElementById(x),cur=()=>levels[li],tiles=$("tiles"),track=$("track"),glow=$("glow");
+function mix(s){return [...s].sort(()=>Math.random()-.5)}function save(){try{localStorage.setItem("jd7",JSON.stringify({li,order,found,score}))}catch(e){}}
+function load(){try{let d=JSON.parse(localStorage.getItem("jd7")||"null");if(!d)return false;li=d.li||0;found=(d.found||[]).filter(x=>cur().words.includes(x));score=d.score||0;order=d.order&&d.order.length===cur().letters.length?d.order:mix(cur().letters);return true}catch(e){return false}}
+function layout(){let cells=Array(80).fill(null),words=cur().words.slice().sort((a,b)=>b.length-a.length);let row=0;words.slice(0,10).forEach((w,k)=>{let st=(k*3)%Math.max(1,9-w.length);for(let j=0;j<w.length&&row*8+st+j<80;j++)cells[row*8+st+j]={w,ch:w[j],k};row++});$("board").innerHTML=cells.map((c,i)=>!c?'<div class="cell empty"></div>':`<div class="cell ${["","p","g","k"][c.k%4]} ${found.includes(c.w)?"gold":""}">${found.includes(c.w)?"★":""}</div>`).join("")}
+function render(){
+ $("score").textContent=score;
+ $("level").textContent=(li+1)+" / 100";
+ $("found").innerHTML=cur().words.map(w=>{
+   const done=found.includes(w), dream=w===cur().letters;
+   return `<div class="answerRow ${done?"done":""} ${dream?"dream":""}">${[...w].map(ch=>`<span class="answerBox">${done?ch:""}</span>`).join("")}</div>`;
+ }).join("");
+ $("count").textContent=`${found.length}/${cur().words.length}`;
+ $("fill").style.width=(found.length/cur().words.length*100)+"%";
+ layout();renderTiles();save()
+}
+function renderTiles(){
+ tiles.innerHTML="";
+ order.forEach((ch,i)=>{
+   let t=document.createElement("div");
+   t.className="tile";
+   t.textContent=ch;
+   t.dataset.i=i;
+   t.addEventListener("pointerdown",ds);
+   t.addEventListener("pointermove",dm);
+   t.addEventListener("pointerup",de);
+   t.addEventListener("pointercancel",de);
+   tiles.appendChild(t)
+ });
+ paintSelected()
+}
+
+let soundOn=true,audioCtx=null;
+function tone(freq,dur,type="sine",vol=.05,delay=0){
+ if(!soundOn)return;
+ try{
+  audioCtx=audioCtx||new (window.AudioContext||window.webkitAudioContext)();
+  const o=audioCtx.createOscillator(),g=audioCtx.createGain(),t=audioCtx.currentTime+delay;
+  o.type=type;o.frequency.setValueAtTime(freq,t);
+  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+.01);g.gain.exponentialRampToValueAtTime(.001,t+dur);
+  o.connect(g);g.connect(audioCtx.destination);o.start(t);o.stop(t+dur)
+ }catch(e){}
+}
+function sfx(kind){
+ if(kind==="tap"){tone(520,.09,"sine",.035)}
+ if(kind==="drag"){tone(300,.08,"triangle",.025)}
+ if(kind==="word"){tone(660,.16,"sine",.05);tone(880,.20,"sine",.045,.08);tone(1100,.25,"sine",.035,.16)}
+ if(kind==="bad"){tone(180,.12,"triangle",.025);tone(150,.13,"triangle",.02,.08)}
+ if(kind==="shuffle"){tone(420,.08,"sine",.03);tone(560,.08,"sine",.03,.06);tone(720,.12,"sine",.03,.12)}
+ if(kind==="level"){[523,659,784,1047].forEach((f,i)=>tone(f,.35,"sine",.045,i*.11))}
+}
+$("sound").onclick=()=>{soundOn=!soundOn;$("sound").textContent=soundOn?"♪":"×";if(soundOn)sfx("tap")};
+
+let selectedIdx=[], downX=0,downY=0,downAt=0,moved=false;
+function paintSelected(){
+ [...tiles.children].forEach((t,j)=>t.classList.toggle("sel",selectedIdx.includes(j)));
+ if(selectedIdx.length){
+   let c=centers(),lo=Math.min(...selectedIdx),hi=Math.max(...selectedIdx),r=track.getBoundingClientRect();
+   glow.style.display="block";
+   glow.style.left=(c[lo]-r.left-20)+"px";
+   glow.style.width=(c[hi]-c[lo]+40)+"px"
+ } else glow.style.display="none"
+}
+function toggleTile(i){
+ if(!selectedIdx.length) selectedIdx=[i];
+ else {
+   let lo=Math.min(...selectedIdx),hi=Math.max(...selectedIdx);
+   if(i===lo-1) selectedIdx.unshift(i);
+   else if(i===hi+1) selectedIdx.push(i);
+   else if(i===lo||i===hi) selectedIdx=selectedIdx.filter(x=>x!==i);
+   else selectedIdx=[i]
+ }
+ selectedIdx=[...new Set(selectedIdx)].sort((x,y)=>x-y);
+ paintSelected()
+}
+function ds(e){
+ if(paused)return;
+ drag=e.currentTarget;
+ let r=drag.getBoundingClientRect();
+ dx=e.clientX-r.left;dy=e.clientY-r.top;
+ downX=e.clientX;downY=e.clientY;downAt=Date.now();moved=false;
+ drag.setPointerCapture?.(e.pointerId);
+ e.preventDefault()
+}
+function dm(e){
+ if(!drag)return;
+ let dist=Math.hypot(e.clientX-downX,e.clientY-downY);
+ if(!ph && dist<12)return;
+ moved=true;
+ if(!ph){
+   let r=drag.getBoundingClientRect();
+   ph=document.createElement("div");ph.className="ph";
+   tiles.insertBefore(ph,drag);
+   drag.classList.add("drag");
+   Object.assign(drag.style,{left:r.left+"px",top:r.top+"px",width:r.width+"px",height:r.height+"px"})
+ }
+ drag.style.left=e.clientX-dx+"px";
+ drag.style.top=e.clientY-dy+"px";
+ let others=[...tiles.children].filter(x=>x!==drag&&x!==ph),target=others.length;
+ for(let i=0;i<others.length;i++){
+   let r=others[i].getBoundingClientRect();
+   if(e.clientX<r.left+r.width/2){target=i;break}
+ }
+ tiles.insertBefore(ph,others[target]||null);
+ e.preventDefault()
+}
+function de(e){
+ if(!drag)return;
+ let tapped=!moved && Math.hypot((e?.clientX||downX)-downX,(e?.clientY||downY)-downY)<12;
+ if(ph){
+   tiles.insertBefore(drag,ph);ph.remove();
+   drag.classList.remove("drag");drag.removeAttribute("style");
+   order=[...tiles.querySelectorAll(".tile")].map(x=>x.textContent);sfx("drag");
+   selectedIdx=[];renderTiles();save()
+ } else if(tapped){
+   toggleTile(+drag.dataset.i);sfx("tap")
+ }
+ drag=null;ph=null
+}
+function centers(){return [...tiles.children].map(t=>{let r=t.getBoundingClientRect();return r.left+r.width/2})}function nearest(x){let c=centers(),q=0,d=1e9;c.forEach((v,i)=>{if(Math.abs(v-x)<d){d=Math.abs(v-x);q=i}});return q}
+function paint(x){let c=centers(),i=nearest(x);if(a<0)a=i;b=i;let lo=Math.min(a,b),hi=Math.max(a,b),r=track.getBoundingClientRect();glow.style.display="block";glow.style.left=(c[lo]-r.left-20)+"px";glow.style.width=(c[hi]-c[lo]+40)+"px";[...tiles.children].forEach((t,j)=>t.classList.toggle("sel",j>=lo&&j<=hi))}
+function clear(){a=b=-1;selectedIdx=[];glow.style.display="none";[...tiles.children].forEach(t=>t.classList.remove("sel"))}function message(x){$("msg").textContent=x;clearTimeout(message.t);message.t=setTimeout(()=>$("msg").textContent="",900)}
+function submit(){
+ let lo,hi;
+ if(selectedIdx.length){lo=Math.min(...selectedIdx);hi=Math.max(...selectedIdx)}
+ else if(a>=0){lo=Math.min(a,b);hi=Math.max(a,b)}
+ else return;
+ let w=order.slice(lo,hi+1).join("");
+ if(cur().words.includes(w)&&!found.includes(w)){
+   found.push(w);score+=w.length*10;sfx("word");message(w+" ★");render();
+   if(w===cur().letters)setTimeout(()=>{$("wintext").textContent=`You found ${w}!`;sfx("level");$("overlay").classList.add("show")},350)
+ } else {sfx("bad");message(found.includes(w)?"Already found":"Try another word")};
+ selectedIdx=[];clear();renderTiles()
+}
+track.onpointerdown=e=>{if(paused)return;select=true;a=b=-1;clear();track.setPointerCapture?.(e.pointerId);paint(e.clientX);e.preventDefault()};track.onpointermove=e=>{if(select)paint(e.clientX)};track.onpointerup=()=>{if(select){select=false;submit()}};track.onpointercancel=()=>{select=false;clear()};
+
+track.addEventListener("click",()=>{if(selectedIdx.length)submit()});
+$("shuffle").onclick=()=>{sfx("shuffle");order=mix(order.join(""));renderTiles();save()};$("clear").onclick=clear;$("pause").onclick=()=>{paused=!paused;message(paused?"PAUSED":"GO!")};$("next").onclick=()=>{$("overlay").classList.remove("show");li=(li+1)%levels.length;found=[];order=mix(cur().letters);start=Date.now();render()};
+setInterval(()=>{if(!paused){let s=Math.floor((Date.now()-start)/1000);$("time").textContent=Math.floor(s/60)+":"+String(s%60).padStart(2,"0")}},250);
+try{
+ if(!load() || !Array.isArray(order) || order.length!==cur().letters.length){
+   order=mix(cur().letters);found=[];
+ }
+}catch(e){order=mix(cur().letters);found=[]}
+render();
+message("Tap letters • drag to rearrange • tap bar to submit");
+if("serviceWorker" in navigator){
+ window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
+}
+})();
+</script></body></html>
