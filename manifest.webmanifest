@@ -1,0 +1,9 @@
+{
+  "name": "Jumble Dreams",
+  "short_name": "Jumble Dreams",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#7250c8",
+  "theme_color": "#715fdd"
+}
